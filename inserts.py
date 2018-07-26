@@ -3,15 +3,19 @@ from datetime import date
 from event import Event
 from base import Session, engine, Base
 from pax import Pax
+from group import Group
 from reservation import Reservation
 from restaurant import Restaurant
 from table import Table
 from slot import Slot
 from day import Day
 
+from datetime import date
+
 Base.metadata.create_all(engine)
 
 session = Session()
+
 
 my_event = Event(4, 4)  # 4 nights, 4 restaurants
 
@@ -46,10 +50,6 @@ table_r3_t1 = Table(my_event, rest3, 4, day1)
 table_r3_t2 = Table(my_event, rest3, 4, day1)
 table_r3_t3 = Table(my_event, rest3, 4, day1)
 
-table_r4_t1 = Table(my_event, rest4, 4, day1)
-table_r4_t2 = Table(my_event, rest4, 4, day1)
-table_r4_t3 = Table(my_event, rest4, 4, day1)
-
 slot_r1_s1 = Slot(my_event, rest1, day1, 90)
 slot_r1_s2 = Slot(my_event, rest1, day1, 90)
 slot_r1_s3 = Slot(my_event, rest1, day1, 90)
@@ -62,7 +62,52 @@ slot_r3_s1 = Slot(my_event, rest3, day1, 90)
 slot_r3_s2 = Slot(my_event, rest3, day1, 90)
 slot_r3_s3 = Slot(my_event, rest3, day1, 90)
 
-slot_r4_s1 = Slot(my_event, rest4, day1, 90)
-slot_r4_s2 = Slot(my_event, rest4, day1, 90)
-slot_r4_s3 = Slot(my_event, rest4, day1, 90)
+reservation_test = Reservation(my_event, group1, table_r1_t1, slot_r1_s1, date(2018, 7, 26), 1, True)
 
+
+session.add(my_event)
+
+session.add(day1)
+session.add(day2)
+session.add(day3)
+session.add(day4)
+
+session.add(pax1)
+session.add(pax2)
+session.add(pax3)
+session.add(pax4)
+
+session.add(group1)
+session.add(group2)
+session.add(group3)
+
+session.add(rest1)
+session.add(rest2)
+session.add(rest3)
+
+session.add(table_r1_t1)
+session.add(table_r1_t2)
+session.add(table_r1_t3)
+
+session.add(table_r2_t1)
+session.add(table_r2_t2)
+session.add(table_r2_t3)
+
+session.add(table_r3_t1)
+session.add(table_r3_t2)
+session.add(table_r3_t3)
+
+session.add(slot_r1_s1)
+session.add(slot_r1_s2)
+session.add(slot_r1_s3)
+
+session.add(slot_r2_s1)
+session.add(slot_r2_s2)
+session.add(slot_r2_s3)
+
+session.add(slot_r3_s1)
+session.add(slot_r3_s2)
+session.add(slot_r3_s3)
+
+session.commit()
+session.close()

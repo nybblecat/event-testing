@@ -9,24 +9,25 @@ class Group(Base):
 
 	id = Column(Integer, primary_key=True)
 
-	event_id = Column(Integer, ForeignKey('event.id'))
-	event = relationship("Event", back_populates='group', uselist=False)
+	event_id = Column(Integer, ForeignKey('events.id'))
+	event = relationship("Event", back_populates='groups')
 
-	pax = relationship("Pax", back_populates='group')
+	pax = relationship("Pax", back_populates='group', uselist=False)
+	reservation = relationship("Reservation")
 
 	name = Column(String)
 
 	def __init__(self, event, name):
-        """
+		"""
 
         :type event: object
         :type name: string
         """
-        assert isinstance(event, object)
-        self.event = event
+		assert isinstance(event, object)
+		self.event = event
 
-        asset isinstance(name, str)
-        self.name = name
+		assert isinstance(name, str)
+		self.name = name
 
 
 	#def __len__(self):

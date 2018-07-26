@@ -1,5 +1,5 @@
 from sqlalchemy import Column, String, Integer, ForeignKey, Boolean
-from sqlalchemy.orm import relationship, backref
+from sqlalchemy.orm import relationship
 
 from base import Base
 
@@ -9,14 +9,15 @@ class Event(Base):
 
     id = Column(Integer, primary_key=True)
 
-    pax = relationship("Pax", backref="events")
-    reservations = relationship("Reservation", backref="events")
+    pax = relationship("Pax", back_populates="event", uselist=False)
+    groups = relationship("Group", back_populates="event", uselist=False)
+    reservations = relationship("Reservation", back_populates="event", uselist=False)
 
-    restaurants = relationship("Restaurant", backref="events")
-    tables = relationship("Table", backlog="events")
+    restaurants = relationship("Restaurant", back_populates="event", uselist=False)
+    tables = relationship("Table", back_populates="event", uselist=False)
 
-    slots = relationships("Slot", backref="events")
-    days = relationship("Days", backref="events")
+    slots = relationship("Slot", back_populates="event", uselist=False)
+    days = relationship("Day", back_populates="event", uselist=False)
 
     num_nights = Column(Integer)
     num_restaurants = Column(Integer)

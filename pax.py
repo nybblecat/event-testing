@@ -10,7 +10,10 @@ class Pax(Base):
     id = Column(Integer, primary_key=True)
 
     event_id = Column(Integer, ForeignKey('events.id'))
-    event = relationship("Event", back_populates='pax', uselist=False)
+    event = relationship("Event", back_populates="pax")
+
+    group_id = Column(Integer, ForeignKey('group.id'))
+    group = relationship("Group", back_populates="pax")
 
     first_name = Column(String)
     last_name = Column(String)
@@ -18,7 +21,7 @@ class Pax(Base):
     phone = Column(String)
     active = Column(Boolean)
 
-    reservation = relationship("Reservation", backpopulates="pax", uselist=False)
+    group = relationship("Group", back_populates="pax")
 
     def __init__(self, event, first_name, last_name, email, phone):
         """

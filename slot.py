@@ -5,18 +5,18 @@ from base import Base
 
 
 class Slot(Base):
-    __tablename__ = 'slots'
+    __tablename__ = 'slot'
 
     id = Column(Integer, primary_key=True)
 
     event_id = Column(Integer, ForeignKey('events.id'))
-    event = relationship("Event", back_populates="slots", uselist=False)
+    event = relationship("Event", back_populates="slots")
 
-    restaurant_id = Column(Integer, ForeignKey('restaurants.id'))  # Each restaurant has its own time slots
-    restaurant = relationship("Restaurant", back_populates="slots", uselist=False)
+    restaurant_id = Column(Integer, ForeignKey('restaurant.id'))  # Each restaurant has its own time slots
+    restaurant = relationship("Restaurant", back_populates="slots")
 
-    day_id = Column(Integer, ForeignKey('days.id'))  # Each time slot occurs on a single day
-    day = relationship("Day", back_populates="slots", uselist=False)
+    day_id = Column(Integer, ForeignKey('day.id'))  # Each time slot occurs on a single day
+    day = relationship("Day")
 
     length = Column(Integer)  # Length of time of slot in minutes
 
@@ -26,7 +26,7 @@ class Slot(Base):
         :type event: object
         :type restaurant: object
         :type day: object
-        :type length: object
+        :type length: int (minutes)
         """
         assert isinstance(event, object)
         assert isinstance(restaurant, object)

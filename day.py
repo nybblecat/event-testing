@@ -5,12 +5,12 @@ from base import Base
 
 
 class Day(Base):
-    __tablename__ = 'days'
+    __tablename__ = 'day'
 
-    id = Column(integer, primary_key=True)
+    id = Column(Integer, primary_key=True)
 
     event_id = Column(Integer, ForeignKey('events.id'))
-    event = relationship("Event", back_populates="days", uselist=False)
+    event = relationship("Event", back_populates="days")
 
     date = Column(Date)
 

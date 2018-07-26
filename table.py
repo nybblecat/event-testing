@@ -5,22 +5,22 @@ from base import Base
 
 
 class Table(Base):
-    __tablename__ = 'tables'
+    __tablename__ = 'table'
 
     id = Column(Integer, primary_key=True)
 
     event_id = Column(Integer, ForeignKey('events.id'))
-    event = relationship("Event", back_populates="tables", uselist=False)
+    event = relationship("Event", back_populates="tables")
 
-    restaurant_id = Column(Integer, ForeignKey('restaurants.id'))  # A table belong to one restaurant
-    restaurant = relationship("Restaurant", back_populates="tables", uselist=False)
+    restaurant_id = Column(Integer, ForeignKey('restaurant.id'))  # A table belong to one restaurant
+    restaurant = relationship("Restaurant", back_populates="tables")
 
-    day_id = Column(Integer, ForeignKey('days.id'))
-    day = relationship("Days", back_populates="tables", uselist=False)  # Every day a new table object
+    day_id = Column(Integer, ForeignKey('day.id'))
+    day = relationship("Day")  # Every day a new table object
 
     seats = Column(Integer)  # Number of seats at the table
 
-    def __init__(self, restaurant, seats, day):
+    def __init__(self, event, restaurant, seats, day):
         """
 
         :type event: object

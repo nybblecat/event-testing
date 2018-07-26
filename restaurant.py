@@ -5,15 +5,15 @@ from base import Base
 
 
 class Restaurant(Base):
-    __tablename__ = 'restaurants'
+    __tablename__ = 'restaurant'
 
     id = Column(Integer, primary_key=True)
 
     event_id = Column(Integer, ForeignKey('events.id'))
-    event = relationship("Event", back_populates="restaurants", uselist=False)
+    event = relationship("Event", back_populates="restaurants")
 
-    tables = relationship("Table", back_populates="restaurants")
-    slots = relationship("Slot", back_populate="restaurants")
+    tables = relationship("Table", back_populates="restaurant", uselist=False)
+    slots = relationship("Slot", back_populates="restaurant", uselist=False)
 
     name = Column(String)
     address_line1 = Column(String)
@@ -27,9 +27,11 @@ class Restaurant(Base):
         :type name: string or unicode characters as name of restaurant
         """
         assert isinstance(event, object)
-        assert not (not isinstance(name, str) and not isinstance(name, bytes))
         self.event = event
+        
+        assert not (not isinstance(name, str) and not isinstance(name, bytes))
         self.name = name
-        self.tables = tables
-        self.slots = slots
+
+        #self.tables = tables
+        #self.slots = slots
 
