@@ -58,3 +58,9 @@ docs/_build/
 target/
 
 venv/
+
+engine\.py
+
+Pipfile
+
+Pipfile\.lock
