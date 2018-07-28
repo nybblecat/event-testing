@@ -64,3 +64,7 @@ engine\.py
 Pipfile
 
 Pipfile\.lock
+sadisplay.py
+sadisp.py
+
+schema\.dot

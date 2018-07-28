@@ -15,25 +15,25 @@ class Slot(Base):
     restaurant_id = Column(Integer, ForeignKey('restaurant.id'))  # Each restaurant has its own time slots
     restaurant = relationship("Restaurant", back_populates="slots")
 
-    day_id = Column(Integer, ForeignKey('day.id'))  # Each time slot occurs on a single day
-    day = relationship("Day")
+    night_id = Column(Integer, ForeignKey('night.id'))  # Time slots are one night only
+    night = relationship("Night")
 
-    length = Column(Integer)  # Length of time of slot in minutes
+    slot_length = Column(Integer)  # Length of time of slot in minutes
 
-    def __init__(self, event, restaurant, day, length):
+    def __init__(self, event, restaurant, night, length):
         """
 
         :type event: object
         :type restaurant: object
-        :type day: object
+        :type night: object
         :type length: int (minutes)
         """
         assert isinstance(event, object)
         assert isinstance(restaurant, object)
-        assert isinstance(day, object)
+        assert isinstance(night, object)
         assert isinstance(length, int)
 
         self.event = event
         self.restaurant = restaurant
-        self.day = day
-        self.length = length
+        self.night = night
+        self.slot_length = length

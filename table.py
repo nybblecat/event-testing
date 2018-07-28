@@ -12,28 +12,31 @@ class Table(Base):
     event_id = Column(Integer, ForeignKey('events.id'))
     event = relationship("Event", back_populates="tables")
 
+    # These tables belong to the restaurant
     restaurant_id = Column(Integer, ForeignKey('restaurant.id'))  # A table belong to one restaurant
     restaurant = relationship("Restaurant", back_populates="tables")
 
-    day_id = Column(Integer, ForeignKey('day.id'))
-    day = relationship("Day")  # Every day a new table object
+    # Every night a new restaurant table object
+    night_id = Column(Integer, ForeignKey('night.id'))
+    night = relationship("Night", uselist=False)  
 
-    seats = Column(Integer)  # Number of seats at the table
+    # Total number of seats available at this table
+    num_seats = Column(Integer)
 
-    def __init__(self, event, restaurant, seats, day):
+    def __init__(self, event, restaurant, num_seats, night):
         """
 
         :type event: object
         :type restaurant: object
-        :type seats: int
-        :type day: object
+        :type num_seats: int
+        :type night: object
         """
         assert isinstance(event, object)
         assert isinstance(restaurant, object)
-        assert isinstance(seats, int)
-        assert isinstance(day, object)
+        assert isinstance(num_seats, int)
+        assert isinstance(night, object)
 
         self.event = event
         self.restaurant = restaurant
-        self.seats = seats
-        self.day = day
+        self.num_seats = num_seats
+        self.night = night

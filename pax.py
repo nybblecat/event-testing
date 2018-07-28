@@ -37,4 +37,3 @@ class Pax(Base):
         self.last_name = last_name
         self.email = email
         self.phone = phone
-

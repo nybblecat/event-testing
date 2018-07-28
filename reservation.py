@@ -16,10 +16,10 @@ class Reservation(Base):
     group = relationship("Group", back_populates="reservation", uselist=False)
 
     table_id = Column(Integer, ForeignKey('table.id'))
-    table = relationship("Table")
+    table = relationship("Table", uselist=False)
 
     slot_id = Column(Integer, ForeignKey('slot.id'))
-    slot = relationship("Slot")
+    slot = relationship("Slot", uselist=False)
 
     created_on = Column(Date)
     created_by = Column(Integer)
@@ -33,7 +33,8 @@ class Reservation(Base):
         :type table: object
         :type slot: object
         :type created_on: date
-        :type created_by: bool
+        :type created_by: int
+        :type active: bool
         """
         self.event = event
         self.group = group
@@ -41,4 +42,7 @@ class Reservation(Base):
         self.slot = slot
         self.created_on = created_on
         self.created_by = created_by
+        self.active = active
+
+
 

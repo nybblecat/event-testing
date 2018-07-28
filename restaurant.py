@@ -18,10 +18,13 @@ class Restaurant(Base):
     name = Column(String)
     address_line1 = Column(String)
     address_line2 = Column(String)
-    url = Column(String)
-    map = Column(String)
+    website_url = Column(String)
+    map_url = Column(String)
     
     def __init__(self, event, name):
+        #, address_line1, address_line2,
+        #website_url, map_url
+        
         """
         :type event: event object
         :type name: string or unicode characters as name of restaurant
@@ -31,7 +34,4 @@ class Restaurant(Base):
         
         assert not (not isinstance(name, str) and not isinstance(name, bytes))
         self.name = name
-
-        #self.tables = tables
-        #self.slots = slots
 
