@@ -10,8 +10,9 @@ class Reservation(Base):
     id = Column(Integer, primary_key=True)
 
     event_id = Column(Integer, ForeignKey('events.id'))
-    event = relationship("Event", back_populates="reservations")
+    event = relationship("Event", back_populates="reservations", uselist=False)
 
+    # One group per reservation
     group_id = Column(Integer, ForeignKey('group.id'))
     group = relationship("Group", back_populates="reservation", uselist=False)
 
@@ -43,6 +44,15 @@ class Reservation(Base):
         self.created_on = created_on
         self.created_by = created_by
         self.active = active
+
+    def __len__(self):
+        return len(self.group)
+
+    def get_table(self):
+        return self.table
+
+    def get_slot(self):
+        return self.slot
 
 
 

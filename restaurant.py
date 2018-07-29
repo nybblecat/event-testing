@@ -10,14 +10,15 @@ class Restaurant(Base):
     id = Column(Integer, primary_key=True)
 
     event_id = Column(Integer, ForeignKey('events.id'))
-    event = relationship("Event", back_populates="restaurants")
+    event = relationship("Event", back_populates="restaurants", uselist=False)
 
-    tables = relationship("Table", back_populates="restaurant", uselist=False)
-    slots = relationship("Slot", back_populates="restaurant", uselist=False)
+    tables = relationship("Table", back_populates="restaurant")
+    slots = relationship("Slot", back_populates="restaurant")
 
     name = Column(String)
     address_line1 = Column(String)
     address_line2 = Column(String)
+    #phone = Column (String)
     website_url = Column(String)
     map_url = Column(String)
     
@@ -35,3 +36,5 @@ class Restaurant(Base):
         assert not (not isinstance(name, str) and not isinstance(name, bytes))
         self.name = name
 
+    def __str__(self):
+        return 'ID {0}: {1} {2} - Total tables: {3}'.format(self.id, self.name, self.phone, self.tables)

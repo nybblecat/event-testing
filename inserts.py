@@ -10,8 +10,6 @@ from table import Table
 from slot import Slot
 from night import Night
 
-from datetime import date
-
 Base.metadata.create_all(engine)
 
 session = Session()

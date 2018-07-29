@@ -1,6 +1,6 @@
 from datetime import date
 
-from sqlalchemy import Column, String, Integer, ForeignKey, Boolean
+from sqlalchemy import Column, String, Integer, ForeignKey, Date, Boolean
 from sqlalchemy.orm import relationship
 
 from base import Base
@@ -11,15 +11,16 @@ class Event(Base):
 
     id = Column(Integer, primary_key=True)
 
-    pax = relationship("Pax", back_populates="event", uselist=False)
-    groups = relationship("Group", back_populates="event", uselist=False)
+    pax = relationship("Pax", back_populates="event")
+    groups = relationship("Group", back_populates="event")
     
-    nights = relationship("Night", back_populates="event", uselist=False)
-    tables = relationship("Table", back_populates="event", uselist=False)
-    slots = relationship("Slot", back_populates="event", uselist=False)
-    reservations = relationship("Reservation", back_populates="event", uselist=False)
+    nights = relationship("Night", back_populates="event")
+    tables = relationship("Table", back_populates="event")
+    slots = relationship("Slot", back_populates="event")
+    reservations = relationship("Reservation", back_populates="event")
 
-    restaurants = relationship("Restaurant", back_populates="event", uselist=False)
+    restaurants = relationship("Restaurant", back_populates="event")
+    start_date = Column(Date)
     num_nights = Column(Integer)
     num_restaurants = Column(Integer)
     active = Column(Boolean)
@@ -50,6 +51,8 @@ class Event(Base):
         # If a reservation already exists, we can't make a new one here.
         if group.get_reservation():
             return False
+
+        
 
         reservation = Reservation(self, group, table, slot, 
             date(2018, 7, 26), 1, True)

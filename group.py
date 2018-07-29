@@ -10,10 +10,10 @@ class Group(Base):
 	id = Column(Integer, primary_key=True)
 
 	event_id = Column(Integer, ForeignKey('events.id'))
-	event = relationship("Event", back_populates='groups')
+	event = relationship("Event", back_populates='groups', uselist=False)
 
 	# Each pax can only belong to one group
-	pax = relationship("Pax", back_populates='group', uselist=False)
+	pax = relationship("Pax", back_populates='group')
 
 	# Each group can only have one reservation
 	reservation = relationship("Reservation", back_populates="group", uselist=False)
@@ -34,16 +34,15 @@ class Group(Base):
 		self.name = name
 
 
-	#def __len__(self):
-
-	def add_pax(self, pax):
-		"""
-
-        :type pax: object
-        """
-		assert isinstance(pax, object)
-		self.pax.append(pax)
+	def __len__(self):
+		if self.pax is None:
+			return 0
+		else:
+			return len(self.pax)
 
 	def get_reservation(self):
 		# Returns False if there is no reservation related to this group
 		return self.reservation
+
+	def get_pax(self):
+		return self.pax

@@ -10,7 +10,7 @@ class Night(Base):
     id = Column(Integer, primary_key=True)
 
     event_id = Column(Integer, ForeignKey('events.id'))
-    event = relationship("Event", back_populates="nights")
+    event = relationship("Event", back_populates="nights", uselist=False)
 
     date = Column(Date) # Simplified date handling as we handle only a few consecutive nights.
                         # Each night has its own restaurant tables and time slots.

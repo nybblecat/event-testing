@@ -10,13 +10,13 @@ class Slot(Base):
     id = Column(Integer, primary_key=True)
 
     event_id = Column(Integer, ForeignKey('events.id'))
-    event = relationship("Event", back_populates="slots")
+    event = relationship("Event", back_populates="slots", uselist=False)
 
     restaurant_id = Column(Integer, ForeignKey('restaurant.id'))  # Each restaurant has its own time slots
-    restaurant = relationship("Restaurant", back_populates="slots")
+    restaurant = relationship("Restaurant", back_populates="slots", uselist=False)
 
     night_id = Column(Integer, ForeignKey('night.id'))  # Time slots are one night only
-    night = relationship("Night")
+    night = relationship("Night", uselist=False)
 
     slot_length = Column(Integer)  # Length of time of slot in minutes
 
