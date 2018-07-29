@@ -68,3 +68,7 @@ sadisplay.py
 sadisp.py
 
 schema\.dot
+
+schema\.plantuml
+
+schema\.png

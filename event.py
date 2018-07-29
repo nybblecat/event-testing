@@ -52,7 +52,8 @@ class Event(Base):
         if group.get_reservation():
             return False
 
-        
+        # Check for enough free seats to accommodate the group
+        assert (table.get_seats_free(slot) >= len(group))
 
         reservation = Reservation(self, group, table, slot, 
             date(2018, 7, 26), 1, True)
